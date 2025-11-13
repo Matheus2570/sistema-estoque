@@ -148,13 +148,12 @@ app.post('/movimento', requireLogin, async (req, res) => {
 
 // --- Saldo ---
 app.get('/saldo', requireLogin, async (req, res) => {
-
   try {
     const query = `
       SELECT p.idp, p.nomep, s.saldo, p.estoque_minimo
       FROM produtos p
       JOIN saldos s ON p.idp = s.idp
-      ORDER BY p.nomep
+      ORDER BY p.idp ASC  -- ← MUDANÇA AQUI
     `;
     const result = await client.query(query);
     
