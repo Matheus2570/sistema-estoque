@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# sistema-estoque
-=======
 # Sistema de Controle de Estoque
 
 Sistema web completo para **gerenciar produtos, saldos e movimentos de estoque**, com autenticação de usuário e interface visual com alertas de estoque baixo.
@@ -43,4 +40,4 @@ git clone https://github.com/Matheus2570/sistema-estoque.git
 cd sistema-estoque
 npm install express ejs pg express-session
 npm install --save-dev nodemon
->>>>>>> 9a5d9a8f4578586ab7d739b6041da3ce288a3e9a
+
