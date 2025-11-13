@@ -1,4 +1,3 @@
-# sistema-estoque
 # Sistema de Controle de Estoque
 
 Sistema web completo para **gerenciar produtos, saldos e movimentos de estoque**, com autenticação de usuário e interface visual com alertas de estoque baixo.
