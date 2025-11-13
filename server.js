@@ -119,7 +119,12 @@ app.post('/produtos/excluir/:idp', requireLogin, async (req, res) => {
 
 // --- Movimento ---
 app.get('/movimento', requireLogin, async (req, res) => {
-  const produtos = await client.query('SELECT idp, nomep FROM produtos ORDER BY nomep');
+  const produtos = await client.query(`
+    SELECT p.idp, p.nomep, s.saldo, p.estoque_minimo
+    FROM produtos p
+    JOIN saldos s ON p.idp = s.idp
+    ORDER BY p.idp
+  `);
   res.render('movimento', { produtos: produtos.rows });
 });
 

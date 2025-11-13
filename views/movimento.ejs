@@ -3,24 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <title>Movimento de Estoque</title>
+  <style>
+    .warning { color: #d35400; font-weight: bold; margin-top: 10px; display: none; }
+  </style>
 </head>
 <body>
-  <a href="/menu">← Voltar</a>
+  <a href="/menu">Voltar</a>
   <h2>Movimento de Estoque</h2>
-  <form method="POST" action="/movimento">
+
+  <form method="POST" action="/movimento" id="formMovimento">
     <label>Produto:</label>
-    <select name="idp">
+    <select name="idp" id="produto" required>
       <% produtos.forEach(p => { %>
-        <option value="<%= p.idp %>"><%= p.nomep %></option>
+        <option value="<%= p.idp %>" 
+                data-saldo="<%= p.saldo %>" 
+                data-minimo="<%= p.estoque_minimo %>">
+          <%= p.nomep %> (Saldo: <%= p.saldo %> | Mín: <%= p.estoque_minimo %>)
+        </option>
       <% }) %>
     </select>
+
     <label>Tipo:</label>
-    <select name="tipo_movimento">
-      <option>ENTRADA</option>
-      <option>SAÍDA</option>
+    <select name="tipo_movimento" id="tipo" required>
+      <option value="ENTRADA">ENTRADA</option>
+      <option value="SAÍDA">SAÍDA</option>
     </select>
-    <input name="qtd" type="number" placeholder="Quantidade" required>
+
+    <input name="qtd" type="number" id="qtd" placeholder="Quantidade" min="1" required>
     <button type="submit">Registrar</button>
   </form>
+
+  <div class="warning" id="aviso">
+    O estoque irá ficar abaixo do mínimo. Tem certeza?
+  </div>
+
+  <script>
+    const form = document.getElementById('formMovimento');
+    const produtoSelect = document.getElementById('produto');
+    const tipoSelect = document.getElementById('tipo');
+    const qtdInput = document.getElementById('qtd');
+    const aviso = document.getElementById('aviso');
+
+    form.addEventListener('submit', function(e) {
+      const option = produtoSelect.options[produtoSelect.selectedIndex];
+      const saldoAtual = parseInt(option.dataset.saldo);
+      const estoqueMinimo = parseInt(option.dataset.minimo);
+      const qtd = parseInt(qtdInput.value);
+      const tipo = tipoSelect.value;
+
+      // Só verifica em SAÍDA
+      if (tipo === 'SAÍDA') {
+        const novoSaldo = saldoAtual - qtd;
+
+        if (novoSaldo < estoqueMinimo) {
+          e.preventDefault(); // Pausa o envio
+
+          // Mostra aviso
+          aviso.style.display = 'block';
+
+          // Confirmação
+          const confirmar = confirm(
+            `ATENÇÃO!\n` +
+            `Produto: ${option.text.split(' (')[0]}\n` +
+            `Saldo atual: ${saldoAtual}\n` +
+            `Saída: ${qtd}\n` +
+            `Novo saldo: ${novoSaldo}\n` +
+            `Mínimo permitido: ${estoqueMinimo}\n\n` +
+            `O estoque ficará abaixo do mínimo. Tem certeza?`
+          );
+
+          if (confirmar) {
+            aviso.style.display = 'none';
+            form.submit(); // Envia de verdade
+          } else {
+            aviso.style.display = 'none';
+          }
+          return;
+        }
+      }
+
+      // Se não for crítico, envia normal
+      aviso.style.display = 'none';
+    });
+
+    // Esconde aviso ao mudar seleção
+    produtoSelect.addEventListener('change', () => aviso.style.display = 'none');
+    tipoSelect.addEventListener('change', () => aviso.style.display = 'none');
+    qtdInput.addEventListener('input', () => aviso.style.display = 'none');
+  </script>
 </body>
 </html>
