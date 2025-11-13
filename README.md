@@ -38,3 +38,5 @@ Desenvolvido como projeto final de disciplina de **Programação Web com Node.js
 ```bash
 git clone https://github.com/Matheus2570/sistema-estoque.git
 cd sistema-estoque
+npm install express ejs pg express-session
+npm install --save-dev nodemon
