@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu</title>
+</head>
+<body>
+  <h2>Bem-vindo, <%= userName %>!</h2>
+  <ul>
+    <li><a href="/produtos">Gerenciar Produtos</a></li>
+    <li><a href="/movimento">Movimentar Estoque</a></li>
+    <li><a href="/saldo">Consultar Saldo</a></li>
+  </ul>
+  <form method="POST" action="/logout">
+    <button type="submit">Sair</button>
+  </form>
+</body>
+</html>

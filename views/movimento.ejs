@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Movimento de Estoque</title>
+</head>
+<body>
+  <a href="/menu">← Voltar</a>
+  <h2>Movimento de Estoque</h2>
+  <form method="POST" action="/movimento">
+    <label>Produto:</label>
+    <select name="idp">
+      <% produtos.forEach(p => { %>
+        <option value="<%= p.idp %>"><%= p.nomep %></option>
+      <% }) %>
+    </select>
+    <label>Tipo:</label>
+    <select name="tipo_movimento">
+      <option>ENTRADA</option>
+      <option>SAÍDA</option>
+    </select>
+    <input name="qtd" type="number" placeholder="Quantidade" required>
+    <button type="submit">Registrar</button>
+  </form>
+</body>
+</html>

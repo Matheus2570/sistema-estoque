@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Produtos</title>
+</head>
+<body>
+  <a href="/menu">← Voltar</a>
+  <h2>Cadastro de Produtos</h2>
+
+  <form method="POST" action="/produtos">
+    <input name="nomep" placeholder="Nome" required>
+    <input name="fabricante" placeholder="Fabricante">
+    <input name="preco" placeholder="Preço" type="number" step="0.01">
+    <input name="estoque_minimo" placeholder="Estoque mínimo" type="number">
+    <input name="voltagem" placeholder="Voltagem">
+    <input name="cor" placeholder="Cor">
+    <input name="peso" placeholder="Peso">
+    <input name="material" placeholder="Material">
+    <textarea name="especificacoes" placeholder="Especificações"></textarea>
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <h3>Lista de Produtos</h3>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Fabricante</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+    <% produtos.forEach(p => { %>
+      <tr>
+        <td><%= p.idp %></td>
+        <td><%= p.nomep %></td>
+        <td><%= p.fabricante %></td>
+        <td>R$ <%= p.preco %></td>
+        <td>
+          <a href="/produtos/editar/<%= p.idp %>">Editar</a>
+          <form method="POST" action="/produtos/excluir/<%= p.idp %>" style="display:inline;">
+            <button type="submit">Excluir</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

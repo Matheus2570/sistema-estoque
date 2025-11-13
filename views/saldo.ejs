@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Saldo de Estoque</title>
+  <style>
+    .baixo { background-color: #ffebee; color: #c62828; font-weight: bold; }
+    .ok    { background-color: #e8f5e9; color: #2e7d32; font-weight: bold; }
+    .status-baixo { color: #c62828; }
+    .status-ok    { color: #2e7d32; }
+  </style>
+</head>
+<body>
+  <a href="/menu">← Voltar</a>
+  <h2>Saldo de Produtos</h2>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>ID</th>           <!-- Nova coluna -->
+      <th>Produto</th>
+      <th>Saldo</th>
+      <th>Estoque Mínimo</th>
+      <th>Status</th>
+    </tr>
+    <% saldos.forEach(s => { %>
+      <%
+         const isBaixo = s.saldo <= s.estoque_minimo;
+         const classeLinha = isBaixo ? 'baixo' : 'ok';
+         const statusTexto = isBaixo ? 'Baixo' : 'OK';
+         const classeStatus = isBaixo ? 'status-baixo' : 'status-ok';
+      %>
+      <tr class="<%= classeLinha %>">
+        <td><%= s.idp %></td>           <!-- Exibindo o ID -->
+        <td><%= s.nomep %></td>
+        <td><%= s.saldo %></td>
+        <td><%= s.estoque_minimo %></td>
+        <td class="<%= classeStatus %>"><%= statusTexto %></td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

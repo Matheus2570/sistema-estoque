@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Produto</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    form { border: 1px solid #ccc; padding: 12px; width: 600px; }
+  </style>
+</head>
+<body>
+  <a href="/produtos">← Voltar</a>
+  <h2>Editar Produto</h2>
+
+  <form method="POST" action="/produtos/atualizar/<%= produto.idp %>">
+    <label>Nome:</label><br>
+    <input type="text" name="nomep" value="<%= produto.nomep %>" required><br>
+
+    <label>Fabricante:</label><br>
+    <input type="text" name="fabricante" value="<%= produto.fabricante %>"><br>
+
+    <label>Preço:</label><br>
+    <input type="number" step="0.01" name="preco" value="<%= produto.preco %>"><br>
+
+    <label>Especificações:</label><br>
+    <textarea name="especificacoes"><%= produto.especificacoes %></textarea><br>
+
+    <label>Estoque mínimo:</label><br>
+    <input type="number" name="estoque_minimo" value="<%= produto.estoque_minimo %>"><br>
+
+    <label>Voltagem:</label><br>
+    <input type="text" name="voltagem" value="<%= produto.voltagem %>"><br>
+
+    <label>Cor:</label><br>
+    <input type="text" name="cor" value="<%= produto.cor %>"><br>
+
+    <label>Peso:</label><br>
+    <input type="text" name="peso" value="<%= produto.peso %>"><br>
+
+    <label>Material:</label><br>
+    <input type="text" name="material" value="<%= produto.material %>"><br><br>
+
+    <button type="submit">Salvar Alterações</button>
+  </form>
+</body>
+</html>
